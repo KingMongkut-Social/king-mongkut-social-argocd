@@ -35,6 +35,16 @@ spec:
                 secretKeyRef:
                   name: king-mongkut-social-backend-secret
                   key: MONGODB_URI
+            - name: ACCESS_TOKEN_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: king-mongkut-social-backend-secret
+                  key: ACCESS_TOKEN_SECRET
+            - name: REFRESH_TOKEN_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: king-mongkut-social-backend-secret
+                  key: REFRESH_TOKEN_SECRET
           envFrom:
             - configMapRef:
                 name: king-mongkut-social-backend-config
