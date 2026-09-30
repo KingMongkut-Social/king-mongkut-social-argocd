@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: king-mongkut-social-api
+  labels:
+    app.kubernetes.io/name: king-mongkut-social-api
+    app.kubernetes.io/component: backend
+    app.kubernetes.io/part-of: king-mongkut-social
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: 4000
+  selector:
+    app.kubernetes.io/name: king-mongkut-social-api

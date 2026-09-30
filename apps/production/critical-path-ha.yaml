@@ -1,0 +1,19 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: king-mongkut-social-api
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: king-mongkut-social-api
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: king-mongkut-social-app
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: king-mongkut-social-app

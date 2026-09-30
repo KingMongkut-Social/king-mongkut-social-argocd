@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: king-mongkut-social-production
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/compare-options: ServerSideDiff=true
+  labels:
+    app.kubernetes.io/name: king-mongkut-social
+    app.kubernetes.io/part-of: king-mongkut-social
+    environment: production
+spec:
+  project: king-mongkut-social
+  source:
+    repoURL: https://github.com/TxngJr/king-mongkut-social-argocd.git
+    targetRevision: main
+    path: apps/production
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: king-mongkut-social-production
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true

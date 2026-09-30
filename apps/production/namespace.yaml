@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: king-mongkut-social-production
+  labels:
+    app.kubernetes.io/name: king-mongkut-social
+    app.kubernetes.io/part-of: king-mongkut-social
+    environment: production

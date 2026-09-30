@@ -1,0 +1,47 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: king-mongkut-social-sync-indexes
+  labels:
+    app.kubernetes.io/name: king-mongkut-social-sync-indexes
+    app.kubernetes.io/component: migration
+    app.kubernetes.io/part-of: king-mongkut-social
+  annotations:
+    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation,HookSucceeded
+    argocd.argoproj.io/sync-wave: "-2"
+spec:
+  activeDeadlineSeconds: 600
+  backoffLimit: 3
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: king-mongkut-social-sync-indexes
+        app.kubernetes.io/component: migration
+    spec:
+      serviceAccountName: king-mongkut-social-runtime
+      automountServiceAccountToken: false
+      restartPolicy: OnFailure
+      containers:
+        - name: sync-indexes
+          image: ghcr.io/txngjr/king-mongkut-social-api
+          imagePullPolicy: IfNotPresent
+          command:
+            - node
+            - dist/scripts/sync-indexes.js
+          env:
+            - name: MONGODB_URI
+              valueFrom:
+                secretKeyRef:
+                  name: king-mongkut-social-backend-secret
+                  key: MONGODB_URI
+          envFrom:
+            - configMapRef:
+                name: king-mongkut-social-backend-config
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi

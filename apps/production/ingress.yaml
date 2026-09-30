@@ -1,0 +1,51 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: king-mongkut-social
+  labels:
+    app.kubernetes.io/name: king-mongkut-social
+    app.kubernetes.io/part-of: king-mongkut-social
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
+    nginx.ingress.kubernetes.io/proxy-body-size: 50m
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    traefik.ingress.kubernetes.io/router.priority: "100"
+spec:
+  ingressClassName: traefik
+  tls:
+    - secretName: king-mongkut-social-production-tls
+      hosts:
+        - denmannsolutions.com
+        - www.denmannsolutions.com
+        - api.denmannsolutions.com
+  rules:
+    - host: api.denmannsolutions.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: king-mongkut-social-api
+                port:
+                  number: 80
+    - host: denmannsolutions.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: king-mongkut-social-app
+                port:
+                  number: 80
+    - host: www.denmannsolutions.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: king-mongkut-social-app
+                port:
+                  number: 80

@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: king-mongkut-social
+  namespace: argocd
+spec:
+  description: King Mongkut Social production platform
+  sourceRepos:
+    - https://github.com/TxngJr/king-mongkut-social-argocd.git
+  destinations:
+    - namespace: king-mongkut-social-production
+      server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+    - group: ""
+      kind: Namespace
+  namespaceResourceWhitelist:
+    - group: "*"
+      kind: "*"
+  orphanedResources:
+    warn: true
+    # GHCR credentials and the ExternalSecret targets are intentionally
+    # managed outside the production Application ownership graph. Keep
+    # warnings enabled for every other unexpected namespaced resource.
+    ignore:
+      - group: ""
+        kind: Secret
+        name: ghcr-pull-secret
+      - group: ""
+        kind: Secret
+        name: king-mongkut-social-backend-secret
+      - group: ""
+        kind: Secret
+        name: king-mongkut-social-infra-secret

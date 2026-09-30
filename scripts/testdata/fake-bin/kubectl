@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+output_expression="${!#}"
+key="${output_expression#*data.}"
+key="${key%\}}"
+key="${key#\\}"
+
+if [[ -n "${FAKE_EMPTY_KEY:-}" && "$key" == "$FAKE_EMPTY_KEY" ]]; then
+  exit 0
+fi
+
+printf 'bm90LWEtcmVhbC1zZWNyZXQ='

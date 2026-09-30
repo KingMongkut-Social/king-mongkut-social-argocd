@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: king-mongkut-social-uploads
+  labels:
+    app.kubernetes.io/name: king-mongkut-social-uploads
+    app.kubernetes.io/part-of: king-mongkut-social
+  annotations:
+    argocd.argoproj.io/sync-wave: "-4"
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi

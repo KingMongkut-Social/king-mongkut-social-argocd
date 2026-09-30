@@ -1,0 +1,29 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: king-mongkut-social-production
+
+replicas:
+  - name: king-mongkut-social-api
+    count: 2
+  - name: king-mongkut-social-app
+    count: 2
+
+resources:
+  - namespace.yaml
+  - service-account.yaml
+  - configmaps.yaml
+  - secrets.yaml
+  - infra
+  - backend
+  - frontend
+  - critical-path-ha.yaml
+  - ingress.yaml
+
+patches:
+  - path: critical-path-topology-patch.yaml
+
+images:
+  - name: ghcr.io/txngjr/king-mongkut-social-api
+    newTag: production
+  - name: ghcr.io/txngjr/king-mongkut-social-app
+    newTag: production
