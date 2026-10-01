@@ -24,6 +24,6 @@ patches:
 
 images:
   - name: ghcr.io/txngjr/king-mongkut-social-api
-    newTag: sha-ed5d303a5dda5c72505e7e1babed5ddbe575f729
+    newTag: sha-2d1b8bce35210d7e15d591ed47defcd2cd530edb
   - name: ghcr.io/txngjr/king-mongkut-social-app
-    newTag: sha-6e8d1c590b3c67d60834f2e7666274dc15ae1620
+    newTag: sha-761d681add7f84426f87def88a8c8d3d46077242
