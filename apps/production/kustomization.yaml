@@ -26,4 +26,4 @@ images:
   - name: ghcr.io/txngjr/king-mongkut-social-api
     newTag: sha-1bd6053a6766932a74b95906a86a828473153b4d
   - name: ghcr.io/txngjr/king-mongkut-social-app
-    newTag: sha-0f9cfd11a3bdebadd868406cad83b80add342dca
+    newTag: sha-99ce0ba0d886ecdc1aaaa3695fe18244d1a2ef64
